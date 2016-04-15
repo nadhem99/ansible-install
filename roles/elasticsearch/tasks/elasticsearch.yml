@@ -21,7 +21,7 @@
 - name: Upload elasticsearch package
   copy: >
     src="{{ es_package }}.tar.gz"
-    dest="/tmp"
+    dest="{{tmp_path}}"
 #  when: curl.status_code != 0
   tags:
    - elasticsearch
@@ -36,7 +36,7 @@
 
 - name: Install Elasticsearch
   unarchive: >
-    src="/tmp/{{ es_package }}.tar.gz"
+    src="{{tmp_path}}/{{ es_package }}.tar.gz"
     dest="{{ es_install_prefix }}"
     copy="no"
 

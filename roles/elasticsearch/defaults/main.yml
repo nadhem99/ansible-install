@@ -3,6 +3,7 @@ es_major_version: "1.x"
 es_version: "1.7.3"
 es_package: "elasticsearch-{{ es_version }}"
 es_instance_name: node
+es_cluster_name: cluster
 es_start_service: true
 es_restart_on_change: true
 es_plugins_reinstall: false
@@ -22,5 +23,7 @@ es_plugin_dir: "{{ es_install_prefix }}/plugins"
 es_conf_dir: "{{ es_install_prefix }}/conf/{{ es_instance_name }}"
 sysd_script: "/usr/lib/systemd/system/elasticsearch.service"
 init_script: "/etc/init.d/elasticsearch"
+
+tmp_path: "/tmp"
 
 default_file: "/etc/sysconfig/elasticsearch"

@@ -12,7 +12,10 @@ nginx_pidfile: "{{ nginx_install_prefix }}/nginx.pid"
 nginx_vhost_path: "{{ nginx_install_prefix }}/conf/conf.d"
 nginx_default_vhost_path: "{{ nginx_install_prefix }}/conf/default.conf"
 
-__nginx_user: "root"
+tmp_path: "/tmp"
+
+nginx_user: "nginx"
+nginx_group: "nginx"
 
 nginx_worker_processes: "1"
 nginx_worker_connections: "1024"

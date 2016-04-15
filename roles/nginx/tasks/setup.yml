@@ -1,5 +1,17 @@
 ---
 
+- name: Configuring nginx group
+  group:
+    name={{ nginx_user }}
+
+- name: Configuring nginx user
+  user:
+    name={{ nginx_user }}
+    group={{ nginx_group }}
+    createhome=no
+
+#@TODO by Axa-tech -> Download package from repo
+
 - name: Upload nginx package
   copy: >
     src="{{ nginx_package }}.tar.gz"

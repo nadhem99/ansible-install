@@ -8,7 +8,7 @@
 - name: Upload Plugins packages
   copy: >
     src="{{ item.package }}"
-    dest="/tmp"
+    dest="{{ tmp_path}}"
   when: item.name is defined and item.package is defined
   with_items: es_plugins
 
