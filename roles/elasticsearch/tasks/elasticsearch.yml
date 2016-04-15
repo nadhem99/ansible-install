@@ -1,0 +1,52 @@
+---
+
+- set_fact: instance_default_file={{default_file | dirname}}/{{es_instance_name}}_{{default_file | basename}}
+- set_fact: instance_init_script={{init_script | dirname }}/{{es_instance_name}}_{{init_script | basename}}
+- set_fact: m_lock_enabled={{ es_config['bootstrap.mlockall'] is defined and es_config['bootstrap.mlockall'] == True }}
+
+- debug: msg="Node configuration {{ es_config }} "
+
+- name: Configuring elastic group
+  group:
+    name={{ es_group }}
+
+- name: Configuring elastic user
+  user:
+    name={{ es_user }}
+    group={{ es_group }}
+    createhome=no
+
+#@TODO by Axa-tech ownload package from repo
+
+- name: Upload elasticsearch package
+  copy: >
+    src="{{ es_package }}.tar.gz"
+    dest="/tmp"
+#  when: curl.status_code != 0
+  tags:
+   - elasticsearch
+
+- name: Cleanup old installation
+  file: >
+    state="absent"
+    path="{{ es_install_prefix }}"
+
+- name: Create directory
+  command: mkdir -p {{ es_install_prefix }}
+
+- name: Install Elasticsearch
+  unarchive: >
+    src="/tmp/{{ es_package }}.tar.gz"
+    dest="{{ es_install_prefix }}"
+    copy="no"
+
+- name: Rename elasticsearch install
+  command: "mv {{ es_install_prefix }}/{{ es_package }} {{ es_install_prefix }}/install"
+
+- name: Add elasticsearch binaries in default path
+  lineinfile: >
+    dest="~/.bashrc"
+    line="export PATH={{ es_install_prefix }}/install/bin:$PATH"
+    regexp='^(export) ?PATH\={{ es_install_prefix }}/install/bin'
+    state=present
+    owner={{ es_user }}

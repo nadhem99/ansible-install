@@ -1,0 +1,6 @@
+# Make sure the service is started, and restart if necessary
+
+- name: Start elasticsearch service
+  shell: elasticsearch &
+  when: es_start_service
+  register: elasticsearch_started

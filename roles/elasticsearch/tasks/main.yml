@@ -1,0 +1,17 @@
+---
+- name: check-parameters
+  include: checkParameters.yml
+
+- include: elasticsearch.yml
+
+- include: elasticsearch-config.yml
+
+- include: elasticsearch-scripts.yml
+  when: es_scripts
+
+- include: elasticsearch-plugins.yml
+  when: es_plugins is defined
+
+- include: elasticsearch-service.yml
+
+- meta: flush_handlers
