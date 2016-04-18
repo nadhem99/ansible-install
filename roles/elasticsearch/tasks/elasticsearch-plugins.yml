@@ -14,7 +14,7 @@
 
 - name: Installing Plugins
   shell: bin/plugin --url file:///tmp/{{ item.package }} --install {{ item.name }}
-    chdir={{ es_install_prefix }}/install
+    chdir={{ es_install_prefix }}
   with_items: es_plugins
   when: item.name is defined and item.package is defined
   register: plugins_installed

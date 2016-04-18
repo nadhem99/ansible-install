@@ -44,7 +44,7 @@ ES_CONF_DIR="/etc/elasticsearch"
 ES_PID_DIR="/var/run/elasticsearch"
 
 # Source the default env file
-ES_ENV_FILE="{{instance_default_file}}"
+ES_ENV_FILE="{{ instance_default_file }}"
 if [ -f "$ES_ENV_FILE" ]; then
     . "$ES_ENV_FILE"
 fi

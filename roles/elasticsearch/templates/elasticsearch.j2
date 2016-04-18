@@ -3,27 +3,27 @@
 ################################
 
 # Elasticsearch home directory
-ES_INSTALL_PREFIX={{es_install_prefix}}
+ES_INSTALL_PREFIX={{ es_install_prefix }}
 
 # Elasticsearch configuration directory
-ES_CONF_DIR={{es_conf_dir}}
+CONF_DIR={{ es_conf_dir }}
 
 # Elasticsearch data directory
 ES_DATA_DIR={{ es_data_dir }}
 
 # Elasticsearch logs directory
-ES_LOG_DIR={{es_log_dir}}
+ES_LOG_DIR={{ es_log_dir }}
 
 # Elasticsearch work directory
-ES_WORK_DIR={{es_work_dir}}
+ES_WORK_DIR={{ es_work_dir }}
 
 # Elasticsearch PID directory
-ES_PID_DIR={{es_pid_dir}}
+ES_PID_DIR={{ es_pid_dir }}
 
 # Heap size defaults to 256m min, 1g max
 # Set ES_HEAP_SIZE to 50% of available RAM, but no more than 31g
 {% if es_heap_size is defined %}
-ES_HEAP_SIZE={{es_heap_size}}
+ES_HEAP_SIZE={{ es_heap_size }}
 {% endif %}
 
 # Heap new generation
@@ -52,8 +52,8 @@ ES_HEAP_SIZE={{es_heap_size}}
 # Note that this setting is only used by the init script. If changed, make sure that
 # the configured user can read and write into the data, work, plugins and log directories.
 # For systemd service, the user is usually configured in file /usr/lib/systemd/system/elasticsearch.service
-ES_USER={{es_user}}
-ES_GROUP={{es_group}}
+ES_USER={{ es_user }}
+ES_GROUP={{ es_group }}
 
 ################################
 # System properties
@@ -64,7 +64,7 @@ ES_GROUP={{es_group}}
 # /usr/lib/systemd/system/elasticsearch.service takes precedence
 {% if es_max_open_files is defined %}
 #MAX_OPEN_FILES
-MAX_OPEN_FILES={{es_max_open_files}}
+MAX_OPEN_FILES={{ es_max_open_files }}
 {% endif %}
 
 # The maximum number of bytes of memory that may be locked into RAM
