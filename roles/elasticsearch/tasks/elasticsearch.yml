@@ -34,18 +34,23 @@
   file: >
     state="absent"
     path="{{ es_install_prefix }}"
+  when : es_reinstall
 
 - name: Create directory
   command: mkdir -p {{ es_install_prefix }}
+  when : es_reinstall
+
 
 - name: Install Elasticsearch
   unarchive: >
     src="{{tmp_path}}/{{ es_package }}.tar.gz"
     dest="/tmp"
     copy="no"
+  when : es_reinstall
 
 - name: Rename elasticsearch install
   shell : sudo cp -R /tmp/{{ es_package }}/* {{ es_install_prefix }}
+  when : es_reinstall
 
 - name: Add elasticsearch binaries in default path
   lineinfile: >
@@ -54,3 +59,4 @@
     regexp='^(export) ?PATH\={{ es_install_prefix }}/install/bin'
     state=present
     owner={{ es_user }}
+  when : es_reinstall
