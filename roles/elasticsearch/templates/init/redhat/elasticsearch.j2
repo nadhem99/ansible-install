@@ -39,11 +39,14 @@ MAX_OPEN_FILES=65535
 MAX_MAP_COUNT=262144
 ES_LOG_DIR="/var/log/elasticsearch"
 ES_DATA_DIR="/var/lib/elasticsearch"
-ES_CONF_DIR="/etc/elasticsearch"
+CONF_DIR="/etc/default/elasticsearch"
+NAME={{es_instance_name}}_{{default_file | basename}}
+
 
 ES_PID_DIR="/var/run/elasticsearch"
 
 # Source the default env file
+#ES_ENV_FILE="{{ instance_default_file }}"
 ES_ENV_FILE="{{ instance_default_file }}"
 if [ -f "$ES_ENV_FILE" ]; then
     . "$ES_ENV_FILE"

@@ -1,5 +1,5 @@
 ---
-es_major_version: "1.x"
+es_major_version: "1.7"
 es_version: "1.7.3"
 es_package: "elasticsearch-{{ es_version }}"
 es_instance_name: node
@@ -23,6 +23,12 @@ es_plugin_dir: "{{ es_install_prefix }}/plugins"
 es_conf_dir: "{{ es_install_prefix }}/config/{{ es_instance_name }}"
 sysd_script: "/usr/lib/systemd/system/elasticsearch.service"
 init_script: "/etc/init.d/elasticsearch"
+
+es_use_repository : false
+es_version_lock : false
+es_package_url : "http://packages.elastic.co/elasticsearch/{{ es_major_version }}/centos/elasticsearch"
+
+es_home : "/usr/share/elasticsearch"
 
 tmp_path: "/tmp"
 

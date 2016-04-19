@@ -1,0 +1,6 @@
+[elasticsearch-{{ es_major_version }}]
+name=Elasticsearch repository for {{ es_major_version }} packages
+baseurl=http://elasticsearch/1.7/centos/elasticsearch-{{ es_major_version }}.noarch.rpm
+gpgcheck=1
+gpgkey=http://packages.elastic.co/GPG-KEY-elasticsearch
+enabled=1

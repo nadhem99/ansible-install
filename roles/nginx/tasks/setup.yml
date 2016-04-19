@@ -39,6 +39,14 @@
 - name: Rename nginx install
   command: "mv {{ nginx_install_prefix }}/{{ nginx_package }} {{ nginx_install_prefix }}/install"
 
+#- name: create pcre dir
+#  shell: "mkdir {{ nginx_install_prefix }}/pcre"
+#- name: ajouter les droits
+#  shell: "chmod u+x {{ nginx_install_prefix }}/pcre"
+# installer pcre et puis
+# ajouter --with-pcre={{ nginx_install_prefix }}/pcre" pour que ngnix le compile sur son chemin
+
+
 - name: Configure nginx build
   shell: "cd {{ nginx_install_prefix }}/install ; ./configure --http-log-path={{ nginx_access_log_path }} --error-log-path={{ nginx_error_log_path }} --conf-path={{ nginx_conf_path }} --pid-path={{ nginx_pidfile }} --sbin-path={{ nginx_sbin_path }}/nginx"
 

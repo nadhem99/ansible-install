@@ -16,8 +16,6 @@
   when: use_system_d
 #- debug: msg="use instance_sysd_script ??????????? {{ instance_sysd_script }}"
 
-#- set_fact: es_home
-
 #Create required directories
 #items : list en dessous
 - name: Create Directories

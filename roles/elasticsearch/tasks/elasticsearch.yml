@@ -22,41 +22,10 @@
 
 #@TODO by Axa-tech ownload package from repo
 
-- name: Upload elasticsearch package
-  copy: >
-    src="{{ es_package }}.tar.gz"
-    dest="{{tmp_path}}"
-#  when: curl.status_code != 0
-  tags:
-   - elasticsearch
+- name: Include specific Elasticsearch for RedHat
+  include: elasticsearch-RedHat.yml
+  when: ansible_os_family == 'RedHat'
 
-- name: Cleanup old installation
-  file: >
-    state="absent"
-    path="{{ es_install_prefix }}"
-  when : es_reinstall
-
-- name: Create directory
-  command: mkdir -p {{ es_install_prefix }}
-  when : es_reinstall
-
-
-- name: Install Elasticsearch
-  unarchive: >
-    src="{{tmp_path}}/{{ es_package }}.tar.gz"
-    dest="/tmp"
-    copy="no"
-  when : es_reinstall
-
-- name: Rename elasticsearch install
-  shell : sudo cp -R /tmp/{{ es_package }}/* {{ es_install_prefix }}
-  when : es_reinstall
-
-- name: Add elasticsearch binaries in default path
-  lineinfile: >
-    dest="~/.bashrc"
-    line="export PATH={{ es_install_prefix }}/install/bin:$PATH"
-    regexp='^(export) ?PATH\={{ es_install_prefix }}/install/bin'
-    state=present
-    owner={{ es_user }}
-  when : es_reinstall
+- name: Include specific Elasticsearch for tar.gz install
+  include: elasticsearch-tar.yml
+  when: ansible_os_family != 'RedHat'
