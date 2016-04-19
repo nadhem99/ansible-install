@@ -4,6 +4,12 @@
 - set_fact: instance_init_script={{init_script | dirname }}/{{es_instance_name}}_{{init_script | basename}}
 - set_fact: m_lock_enabled={{ es_config['bootstrap.mlockall'] is defined and es_config['bootstrap.mlockall'] == True }}
 
+- set_fact : es_home = /usr/share/elasticsearch
+  when: ansible_os_family == 'RedHat'
+
+- set_fact : es_home = {{ es_install_prefix }}
+  when: ansible_os_family != 'RedHat'
+
 - debug: msg=" default file{{ instance_default_file }} "
 - debug: msg=" init script {{ instance_init_script }} "
 
@@ -24,7 +30,7 @@
 
 - name: Include specific Elasticsearch for RedHat
   include: elasticsearch-RedHat.yml
-  when: ansible_os_family == 'RedHat'
+  when: ansible_os_family == 'RedHat' and es_reinstall==true
 
 - name: Include specific Elasticsearch for tar.gz install
   include: elasticsearch-tar.yml

@@ -16,7 +16,7 @@ es_port: 9200
 #Need to provide default directories
 es_install_prefix: "/opt/elasticsearch/{{ es_version }}"
 es_pid_dir: "{{ es_install_prefix }}/{{ es_instance_name }}"
-es_data_dir: "{{ es_install_prefix }}/lib/{{ es_instance_name }}"
+es_data_dir: "{{ es_install_prefix }}/data/{{ es_instance_name }}"
 es_log_dir: "{{ es_install_prefix }}/log/{{ es_instance_name }}"
 es_work_dir: "{{ es_install_prefix }}/tmp/{{ es_instance_name }}"
 es_plugin_dir: "{{ es_install_prefix }}/plugins"
