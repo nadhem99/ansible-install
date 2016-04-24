@@ -23,9 +23,30 @@ server {
     return {{ vhost.return }};
     {% endif %}
 
-    {% if vhost.extra_parameters is defined %}
-    {{ vhost.extra_parameters }}
+    {% if vhost.locations is defined %}
+
+        {% for location in vhost.locations %}
+
+       location {{ location.path }} {
+        {% for content in location.contents %}
+         {{ content.key }} {% if content.value is defined %} {{ content.value  }} {% endif %};
+         {% endfor %}
+       }
+
+        {% endfor %}
+
     {% endif %}
 
 }
+{% endfor %}
+
+{% for upstream in nginx_upstreams %}
+    upstream {{ upstream.name }} {
+{% if upstream.strategy is defined %}
+        {{ upstream.strategy }};
+{% endif %}
+{% for server in upstream.servers %}
+        server {{ server }};
+{% endfor %}
+    }
 {% endfor %}

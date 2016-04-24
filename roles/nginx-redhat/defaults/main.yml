@@ -62,36 +62,62 @@ nginx_vhosts:
 # Example vhost below, showing all available options:
  - listen: "8080 default_server" # default: "80 default_server"
    server_name: "localhost" # default: N/A
-   root: "//usr/share/nginx/html" # default: N/A
+   root: "/usr/share/nginx/html" # default: N/A
    index: "index.html index.htm" # default: "index.html index.htm"
    # Properties that are only added if defined:
-   #error_page: "/var/error"
+   error_page: "500 502 503 504  /50x.html"
    #access_log: "/var/log"
    #error_log: "/var/error"
    #extra_parameters: "" # Can be used to add extra config blocks (multiline).
-   extra_parameters :
-    #- locations :
-    #  - name : gagaga
-    #    action : bababa
-    #  - name : gagaga
-    #    action : jhsdjbsds
+   locations :
+        - path : /myels
+          contents :
+           - key : proxy_pass
+             value : http://myels
+           - key : server_name_in_redirect
+             value : "on"
 
+        #- path : /
+        #  contents :
+        #   - key: root
+        #     value: /usr/share/nginx/html
+        #   - key: index
+        #     value: index.html index.htm
+        #- path : /dev/
+        #  contents :
+        #   - key: alias
+        #     value: /group/claims/cca-frontend-1.0.0-SNAPSHOT/cca-frontend-1.0.0-SNAPSHOT/dist/
+        #- path : ~* ^/api/claims/(.*)
+        #  contents :
+        #   - key: proxy_pass
+        #     value: http://127.0.0.1:9197/api/claims/$1$is_args$args
+        #- path : ~* ^/api/bodyshops/(.*)
+        #  contents :
+        #   - key: proxy_pass
+        #     value: http://127.0.0.1:9197/api/bodyshops/$1$is_args$args
+        #- path : ~* ^/api/users/(.*)
+        #  contents :
+        #   - key: proxy_pass
+        #     value: http://127.0.0.1:9198/api/users/$1$is_args$args
+        #- path :  ~* ^/api/configs/(.*)
+        #  contents :
+        #   - key: proxy_pass
+        #     value: proxy_pass http://127.0.0.1:9198/api/configs/$1$is_args$args
 
- - listen: "9080 default_server" # default: "80 default_server"
-   server_name: "172.17.0.2" # default: N/A
-   root: "/usr/share/nginx/html" # default: N/A
-   index: "index.html index.htm" # default: "index.html index.htm"
+# - listen: "9080 default_server" # default: "80 default_server"
+#   server_name: "172.17.0.2" # default: N/A
+#   root: "/usr/share/nginx/html" # default: N/A
+#   index: "index.html index.htm" # default: "index.html index.htm"
    # Properties that are only added if defined:
    #error_page: "/var/error1"
    #access_log: "/var/log1"
    #error_log: "/var/error1"
    #extra_parameters: "" # Can be used to add extra config blocks (multiline).
 
-nginx_upstreams: []
-# - name: myapp1
-#   strategy: "ip_hash" # "least_conn", etc.
-#   servers: {
-#     "srv1.example.com",
-#     "srv2.example.com weight=3",
-#     "srv3.example.com"
-#   }
+nginx_upstreams:
+ - name: myels
+   strategy: "ip_hash" #"least_conn", etc.
+   servers: {
+     "http://localhost:9201 ",
+     "http://localhost:9200 ",
+   }
