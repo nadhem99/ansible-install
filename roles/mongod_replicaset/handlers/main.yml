@@ -1,3 +1,4 @@
 ---
 - name: Restart mongodb
-  service: name=mongod.service enabled=yes state=restarted
+#  service: name=mongod.service enabled=yes state=restarted
+  shell : service mongod stop;service mongod start

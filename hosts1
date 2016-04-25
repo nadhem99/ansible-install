@@ -1,13 +1,13 @@
 # The site wide list of mongodb servers
 
 [mongo_servers]
-mongo1 mongod_port=27017
+localhost mongod_port=27017
 
 [mongod_primary]
-mongo1 mongod_port=27017
+localhost mongod_port=27017
 
 [mongod_slaves]
-mongo1 mongod_port=27017
+localhost mongod_port=27017
 
 [mongod_arbiters]
-mongo1 mongod_port=27017
+localhost mongod_port=27017

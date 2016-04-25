@@ -3,7 +3,7 @@
   template: src=repset_init.j2 dest=/tmp/repset_init.js
 
 - name: Call out and initiate the replication set, just in case it hasn't already
-  shell: /usr/bin/mongo -u admin -p {{ mongo_admin_pass }} --authenticationDatabase admin -host {{ groups["mongod_primary"][0] }}:{{ hostvars[groups["mongod_primary"][0]]["mongod_port"] }} /tmp/repset_init.js
+  shell: /usr/bin/mongo -u admin_mongo -p {{ mongo_admin_pass }} --authenticationDatabase admin -host {{ groups["mongod_primary"][0] }}:{{ hostvars[groups["mongod_primary"][0]]["mongod_port"] }} /tmp/repset_init.js
   args:
     creates: initiateReplicaset
 
@@ -11,6 +11,6 @@
   template: src=repset_addArbiter.j2 dest=/tmp/repset_addArbiter.js
 
 - name: Add arbiter to the replication set
-  shell: /usr/bin/mongo -u admin -p {{ mongo_admin_pass }} --authenticationDatabase admin -host {{ groups["mongod_primary"][0] }}:{{ hostvars[groups["mongod_primary"][0]]["mongod_port"] }} /tmp/repset_addArbiter.js
+  shell: /usr/bin/mongo -u admin_mongo -p {{ mongo_admin_pass }} --authenticationDatabase admin -host {{ groups["mongod_primary"][0] }}:{{ hostvars[groups["mongod_primary"][0]]["mongod_port"] }} /tmp/repset_addArbiter.js
   args:
     creates: addArbiterToReplicaset

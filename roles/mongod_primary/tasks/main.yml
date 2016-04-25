@@ -6,15 +6,21 @@
   template: src=mongod_unauthenticated.conf.j2 dest=/etc/mongod.conf
 
 - name: Enable at boot and start mongodb
-  service: name=mongod.service enabled=yes state=started
+#  command : service mongod start
+  shell : service mongod stop;service mongod start
+#- name: Add the admin user to the replicaset
+#  mongodb_user: database=admin name=admin password={{ mongo_admin_pass }} login_port={{ mongod_port }} roles='root' state=present
+#  ignore_errors: yes
 
-- name: Add the admin user to the replicaset
-  mongodb_user: database=admin name=admin password={{ mongo_admin_pass }} login_port={{ mongod_port }} roles='root' state=present
-  ignore_errors: yes
+- name : Add the admin user to the replicaset 
+  shell : "echo 'db.createUser({ user : \"admin_mongo\", pwd: \"{{ mongo_admin_pass }}\", roles: [ { role: \"root\", db: \"admin\" } ] } );' | mongo admin"
+
+- name : Add the admin user to the replicaset to test DB
+  shell : "echo 'db.createUser({ user : \"admin_mongo\", pwd: \"{{ mongo_admin_pass }}\", roles: [ { role: \"root\", db: \"test\" } ] } );' | mongo test"
 
 - name: Create the file to initialize the replicaset
   template: src=repset_init.j2 dest=/tmp/repset_init.js
 
 - name: Initialize the replication set on the primary
-  shell: /usr/bin/mongo -u admin -p {{ mongo_admin_pass }} --authenticationDatabase admin /tmp/repset_init.js
+  shell: /usr/bin/mongo -u admin_mongo -p {{ mongo_admin_pass }} --authenticationDatabase admin /tmp/repset_init.js
   run_once: true

@@ -8,7 +8,7 @@ mongos_port: 8888
 
 # The port for mongo config server
 mongoc_port: 7777
-
+mongod_port: 27017
 # The directory prefix where the database files would be stored
 mongodb_datadir_prefix: /data/
 
@@ -20,8 +20,7 @@ mongodb_datadir_prefix: /data/
 # ...to override.
 #
 # iface: '{{ ansible_default_ipv4.interface }}'
-iface: enp0s8
-
+iface: docker0
 # The password for admin user
 mongo_admin_pass: 123456
 
