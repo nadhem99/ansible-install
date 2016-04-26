@@ -1,0 +1,4 @@
+- hosts: postgresql
+  connection : docker
+  roles:
+    - { role: postgresql }

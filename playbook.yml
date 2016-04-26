@@ -1,7 +1,28 @@
-- hosts: localhost
+- hosts: slave
+  connection : docker
   roles:
-    - { role: elasticsearch, es_instance_name: "node1",es_reinstall: true, es_heap_size: "1g", es_config: {network.host: "localhost", discovery.zen.ping.unicast.hosts: "localhost:9300", http.port: 9200, transport.tcp.port: 9300, node.data: false, node.master: true, bootstrap.mlockall: true }, es_plugins: [{name: "geocluster-facet", package: "geocluster-facet-0.0.12.jar", reinstall=False}] }
-    - { role: elasticsearch, es_instance_name: "node2", es_reinstall: false, es_heap_size: "1g", es_config: {network.host: "localhost", discovery.zen.ping.unicast.hosts: "localhost:9300", http.port: 9201, transport.tcp.port: 9301, node.data: true, node.master: false, bootstrap.mlockall: true }, es_plugins: [{name: "geocluster-facet", package: "geocluster-facet-0.0.12.jar", reinstall=False}] }
-    - { role: nginx-redhat }
+    #- { role: elasticsearch, es_instance_name: "node1",es_reinstall: true, es_heap_size: "1g", es_config: {network.host: "localhost", discovery.zen.ping.unicast.hosts: "localhost:9300", http.port: 9200, transport.tcp.port: 9300, node.data: false, node.master: true, bootstrap.mlockall: true }, es_plugins: [{name: "geocluster-facet", package: "geocluster-facet-0.0.12.jar", reinstall=False}] }
+    - { role: elasticsearch, es_instance_name: "node0",es_reinstall: false, es_heap_size: "1g", es_config: {network.host: "{{ ansible_hostname }}", discovery.zen.ping.unicast.hosts: "{{ ansible_hostname }}:9300", http.port: 9200, transport.tcp.port: 9300, node.data: false, node.master: true, bootstrap.mlockall: true }, es_plugins: [{name: "geocluster-facet", package: "geocluster-facet-0.0.12.jar", reinstall=False}] }
+    - { role: elasticsearch, es_instance_name: "node1", es_reinstall: false, es_heap_size: "1g", es_config: {network.host: "{{ ansible_hostname }}", discovery.zen.ping.unicast.hosts: "{{ ansible_hostname }}:9300", http.port: 9201, transport.tcp.port: 9301, node.data: true, node.master: false, bootstrap.mlockall: true }, es_plugins: [{name: "geocluster-facet", package: "geocluster-facet-0.0.12.jar", reinstall=False}] }
+    #- { role: nginx-redhat }
   vars:
     es_cluster_name: test-cluster1
+
+
+- hosts: master
+  connection : docker
+  roles:
+    - { role: elasticsearch, es_instance_name: "node2", es_reinstall: false, es_heap_size: "1g", es_config: {network.host: "{{ ansible_hostname }}", discovery.zen.ping.unicast.hosts: "{{ ansible_hostname }}:9300", http.port: 9201, transport.tcp.port: 9301, node.data: true, node.master: false, bootstrap.mlockall: true }, es_plugins: [{name: "geocluster-facet", package: "geocluster-facet-0.0.12.jar", reinstall=False}] }
+    #- { role: nginx-redhat }
+  vars:
+    es_cluster_name: test-cluster1
+
+- hosts: nginx
+  connection : docker
+  roles:
+    - { role: nginx-redhat }
+
+- hosts: postgresql
+  connection : docker
+  roles:
+    - { role: postgresql}
