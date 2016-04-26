@@ -2,7 +2,7 @@
 
 galaxy_info:
   author: "AXA-TECH"
-  description: A role to install PostgreSQL 8.4/9.x on RedHat/CentOS/Scientific/Oracle Enterprise Linux.
+  description: A role to install elasticsearch on RedHat/CentOS/Scientific/Oracle Enterprise Linux.
   license: free
   min_ansible_version: 1.4
   version: 1.0
@@ -11,7 +11,10 @@ galaxy_info:
       versions:
       - 7
       - 6
+    - name: ALL
+      versions:
+      - 7
+      - 6
   categories:
    - database
-   - database:sql
 dependencies: []

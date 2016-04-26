@@ -2,10 +2,10 @@
 dependencies: []
 
 galaxy_info:
-  author: geerlingguy
+  author: "AXA-TECH"
   description: Nginx installation for Linux/UNIX.
-  company: "Midwestern Mac, LLC"
-  license: "license (BSD, MIT)"
+  company: "AXA-TECH"
+  license: "free"
   min_ansible_version: 1.8
   platforms:
     - name: EL
