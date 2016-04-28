@@ -1,6 +1,12 @@
-[elasticsearch-{{ es_major_version }}]
-name=Elasticsearch repository for {{ es_major_version }} packages
-baseurl=http://elasticsearch/1.7/centos/elasticsearch-{{ es_major_version }}.noarch.rpm
-gpgcheck=1
-gpgkey=http://packages.elastic.co/GPG-KEY-elasticsearch
+#[elasticsearch-{{ es_major_version }}]
+#name=Elasticsearch repository for {{ es_major_version }} packages
+#baseurl=http://elasticsearch/1.7/centos/elasticsearch-{{ es_major_version }}.noarch.rpm
+#gpgcheck=1
+#gpgkey=http://packages.elastic.co/GPG-KEY-elasticsearch
+#enabled=1
+[local]
+name=CentOS-$releasever - local packages for $basearch
+baseurl=http://10.142.128.34/repos/centos/6/7/elasticsearch-{{ es_major_version }}.rpm
 enabled=1
+gpgcheck=0
+protect=1

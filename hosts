@@ -1,11 +1,11 @@
 [mongo_servers]
-mongo1 ansible_ssh_host=localhost ansible_ssh_port=22
+labssnbd1dn02 ansible_ssh_host=labssnbd1dn02 ansible_ssh_port=22
 
 [mongod_primary]
-mongo1 ansible_ssh_host=localhost ansible_ssh_port=22
+labssnbd1dn02 ansible_ssh_host=labssnbd1dn02 ansible_ssh_port=22
 
 [mongod_slaves]
-mongo1 ansible_ssh_host=localhost ansible_ssh_port=22
+labssnbd1dn02 ansible_ssh_host=labssnbd1dn02 ansible_ssh_port=22
 
 [mongod_arbiters]
-mongo1 ansible_ssh_host=localhost ansible_ssh_port=22
+labssnbd1dn02 ansible_ssh_host=labssnbd1dn02 ansible_ssh_port=22

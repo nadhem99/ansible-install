@@ -1,17 +1,28 @@
 ---
 - name: check-parameters
+  sudo : yes
   include: checkParameters.yml
 
-- include: elasticsearch.yml
+- name : install elasticsearch
+  sudo : yes
+  include: elasticsearch.yml
+  
+- name : check elasticsearch config 
+  sudo : yes
+  include: elasticsearch-config.yml
 
-- include: elasticsearch-config.yml
-
-- include: elasticsearch-scripts.yml
+- name : script elasticsearch
+  sudo : yes
+  include: elasticsearch-scripts.yml
   when: es_scripts
 
-- include: elasticsearch-plugins.yml
+- name : enable elasticsearch plugins
+  sudo : yes
+  include: elasticsearch-plugins.yml
   when: es_plugins is defined
 
-- include: elasticsearch-service.yml
+- name : activate elasticsearch service
+  sudo : yes 
+  include: elasticsearch-service.yml
 
 - meta: flush_handlers

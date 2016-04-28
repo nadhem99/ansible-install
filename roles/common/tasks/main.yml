@@ -3,14 +3,8 @@
 #- name: Create the hosts file for all machines
 #  template: src=hosts.j2 dest=/etc/hosts
 
-- name: Create the repository for 10Gen
-  copy: src=10gen.repo.j2 dest=/etc/yum.repos.d/10gen.repo
-
 - name: Create the EPEL Repository.
-  copy: src=epel.repo.j2 dest=/etc/yum.repos.d/epel.repo
-
-- name: Create the GPG key for EPEL
-  copy: src=RPM-GPG-KEY-EPEL-6 dest=/etc/pki/rpm-gpg
+  copy: src=local.repo dest=/etc/yum.repos.d/local.repo
 
 - name: Create the mongod user
   user: name=mongod comment="MongoD"
@@ -28,7 +22,7 @@
    - python-pip
    - ntp
    - tuned
-
+  ignore_errors : yes
 - name: Enable NTPD
   service: name=ntpd enabled=yes state=started
 

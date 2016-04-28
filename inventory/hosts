@@ -1,0 +1,6 @@
+[slave]
+labssnbd1dn02.lab-bigdata.intraxa
+#localhost
+[master]
+labssnbd1dn02.lab-bigdata.intraxa
+#localhost

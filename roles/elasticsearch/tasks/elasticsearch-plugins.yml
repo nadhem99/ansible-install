@@ -9,14 +9,14 @@
   copy: >
     src="{{ item.package }}"
     dest="{{ tmp_path}}"
-  when: item.name is defined and item.package is defined
+  when: item.name is defined and item.package is defined and item.reinstall == True
   with_items: es_plugins
 
 - name: Installing Plugins
   shell: sh {{ es_home }}/bin/plugin --url file:///tmp/{{ item.package }} --install {{ item.name }}
     chdir={{ es_install_prefix }}
   with_items: es_plugins
-  when: item.name is defined and item.package is defined
+  when: item.name is defined and item.package is defined and item.reinstall == True
   register: plugins_installed
   changed_when: "'Installed' in plugins_installed.stdout"
   failed_when: "plugins_installed.rc != 0 and plugins_installed.stdout.find('already exists. To update the plugin') == -1"
